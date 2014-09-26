@@ -1,7 +1,6 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-import unittest
 
 class NewVisitorTest(LiveServerTestCase):
 
@@ -54,8 +53,8 @@ class NewVisitorTest(LiveServerTestCase):
 		inputbox.send_keys(Keys.ENTER)
 		
 		# The page updates again, and now shows both items on her list.
-		self.check_for_row_in_list_table('1: Buy peacock feathers')
 		self.check_for_row_in_list_table('2: Use peacock feathers to make a fly')
+		self.check_for_row_in_list_table('1: Buy peacock feathers')
 
 		# Now a new user, Francis, comes along to the site.
 
@@ -66,7 +65,7 @@ class NewVisitorTest(LiveServerTestCase):
 
 		# Francis visits the home page. There is no sign of Edith's list.
 		self.browser.get(self.live_server_url)
-		page_text = self.browser.find_elements_by_tag_name('body').text
+		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Buy peacock feathers', page_text)
 		self.assertNotIn('make a fly', page_text)
 
