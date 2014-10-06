@@ -1,5 +1,5 @@
+virtualenv
 db.sqlite3
-venv
 __pycache__
 *.pyc
 *.sublime-workspace
