@@ -17,7 +17,7 @@ eg, on Ubuntu:
 ## First use fab to deploy
 	(pg. 163)
 
-	tech1-49s:deploy_tools sarah$ fab deploy:host=sarah@superlists-staging.saraheiting.com
+	tech1-49s:deploy_tools sarah$ fab deploy:host=sarah@superlists.saraheiting.com
 
 ## Nginx Virtual Host config
 
@@ -55,6 +55,3 @@ Assume we have a user account at /home/username
          ├── source
          ├── static
          └── virtualenv
-
-
-
