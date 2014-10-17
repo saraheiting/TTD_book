@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django import forms
+
 from lists.models import Item
 
 EMPTY_LIST_ERROR = "You can't have an empty list item"

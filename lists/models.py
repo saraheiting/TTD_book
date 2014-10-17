@@ -7,7 +7,10 @@ class List(models.Model):
 		return reverse('view_list', args=[self.id])
 
 class Item(models.Model):
-	text = models.TextField(default='')		
+	text = models.TextField(default='') 
+	# blank=False is default, If a field has blank=True, form validation will 
+	# allow entry of an empty value. If a field has blank=False, the field will
+	# be required.		
 	list = models.ForeignKey(List, default=None)
 
 	def __str__(self):
