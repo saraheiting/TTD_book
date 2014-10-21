@@ -7,6 +7,7 @@
 		<link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" 
 			media="screen">
 		<link href="/static/base.css" rel="stylesheet" media="screen">
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	</head>
 
 	<body>
@@ -21,7 +22,7 @@
 						{% csrf_token %}
 						{% if form.errors %}
 							<div class="form-group has-error">
-								<span class="help-block">{{ form.text.errors }}</span>
+								<div class="help-block">{{ form.text.errors }}</div>
 							</div>
 						{% endif %}
 					</form>
@@ -36,5 +37,7 @@
 		</div>
 
 	</div>	
+	<script src="/static/list.js"></script>
 	</body>
+
 </html>
