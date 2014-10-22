@@ -5,3 +5,7 @@
 #id_header_1 {
 	color: #6A038C;
 }
+
+.errorlist {
+	list-style-type: none;
+}
