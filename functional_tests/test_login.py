@@ -14,7 +14,7 @@ class LoginTest(FunctionalTest):
 				if text_in_title in self.browser.title:
 					return
 			retries -= 1
-			time.sleep(0.5)
+			time.sleep(0.5) 
 		self.fail('could not find window')
   
 	def test_login_with_persona(self):
