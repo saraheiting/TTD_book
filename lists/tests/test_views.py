@@ -1,7 +1,7 @@
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 from django.utils.html import escape
-from lists.views import home_page
+from lists.views import home_page, new_list
 from lists.models import Item, List
 from lists.forms import (
 	DUPLICATE_ITEM_ERROR, EMPTY_LIST_ERROR, 
@@ -9,6 +9,8 @@ from lists.forms import (
 )
 from unittest import skip
 from django.contrib.auth import get_user_model
+from django.http import HttpRequest
+
 
 User = get_user_model()
 
@@ -58,6 +60,14 @@ class NewListTest(TestCase):
 	def test_for_invalid_input_passes_form_to_template(self):
 		response = self.client.post('/lists/new', data={'text': ''})
 		self.assertIsInstance(response.context['form'], ItemForm)
+
+	def test_list_owner_is_saved_if_user_is_authenticated(self):
+		request = HttpRequest()
+		request.user = User.objects.create(email='a@b.com')
+		request.POST['text'] = 'new list item'
+		new_list(request)
+		list_ = List.objects.first()
+		self.assertEqual(list_.owner, request.user)
 
 class ListViewTest(TestCase):
 
