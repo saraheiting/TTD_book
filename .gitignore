@@ -3,4 +3,5 @@ db.sqlite3
 __pycache__
 *.pyc
 *.sublime-workspace
+functional_tests/screendumps
 *.DS_Store
