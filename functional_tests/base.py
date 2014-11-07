@@ -1,13 +1,15 @@
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import WebDriverException
 from selenium import webdriver
-import sys
-import os
+import sys, os, time
 from .server_tools import reset_database
 from datetime import datetime
+
 SCREEN_DUMP_LOCATION = os.path.abspath(
 	os.path.join(os.path.dirname(__file__), 'screendumps')
 )
+DEFAULT_WAIT = 5
 
 class FunctionalTest(StaticLiveServerTestCase):
 
@@ -32,7 +34,7 @@ class FunctionalTest(StaticLiveServerTestCase):
 		if self.against_staging:
 			reset_database(self.server_host)
 		self.browser = webdriver.Firefox()
-		self.browser.implicitly_wait(3)
+		self.browser.implicitly_wait(DEFAULT_WAIT)
 
 	def tearDown(self):
 		if self._test_has_failed():
@@ -73,6 +75,16 @@ class FunctionalTest(StaticLiveServerTestCase):
 				windowid=self._windowid,
 				timestamp=timestamp
 			)
+
+	def wait_for(self, function_with_assertion, timeout=DEFAULT_WAIT):
+		start_time = time.time()
+		while time.time() - start_time < timeout:
+			try:
+				return function_with_assertion()
+			except (AssertionError, WebDriverException):
+				time.sleep(0.1)
+		# one more try, which will raise any errors if they are outstanding
+		return function_with_assertion()
 
 	def check_for_row_in_list_table(self, row_text):
 		table = self.browser.find_element_by_id('id_list_table')
