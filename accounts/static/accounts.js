@@ -20,8 +20,6 @@ var initialize = function (navigator, user, token, urls) {
         },
         onlogout: function () {}
     });
-
-    navigator.id.logout();
 };
 
 window.Superlists = {
